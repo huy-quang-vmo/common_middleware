@@ -1,4 +1,4 @@
-module github.com/common-middleware
+module github.com/huy-quang-vmo/common_middleware
 
 go 1.22.0
 
