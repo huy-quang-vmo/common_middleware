@@ -23,3 +23,22 @@ func (i *INewsRepository) GetServiceStatus(ctx context.Context) (entity.ServiceS
 
 	return serviceManagement.Status, nil
 }
+
+func (i *INewsRepository) GetServiceManagement(ctx context.Context) (entity.ServiceManagement, error) {
+	var serviceManagement entity.ServiceManagement
+	err := i.DB.ModelContext(ctx, &serviceManagement).First()
+	if err != nil {
+		return serviceManagement, err
+	}
+
+	return serviceManagement, nil
+}
+
+func (i *INewsRepository) UpdateServiceManagement(ctx context.Context, serviceManagement *entity.ServiceManagement) error {
+	_, err := i.DB.ModelContext(ctx, serviceManagement).WherePK().Update()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
