@@ -1,7 +1,7 @@
 package main
 
 import (
-	common_middleware "github.com/common-middleware"
+	common_middleware "github.com/huy-quang-vmo/common_middleware/maintenance"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )

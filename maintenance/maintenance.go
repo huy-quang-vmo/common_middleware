@@ -1,4 +1,4 @@
-package common_middleware
+package maintenance
 
 import "net/http"
 
@@ -11,18 +11,18 @@ func NewMaintenanceMiddleware(maintenanceStatus GetMaintenanceStatus) *Maintenan
 }
 
 type GetMaintenanceStatus interface {
-	GetMaintenanceStatus() (bool, error)
+	IsMaintenance() (bool, error)
 }
 
 func (c *MaintenanceMiddleware) MaintenanceStatus(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		isMaintenanceMode, err := c.maintenanceStatus.GetMaintenanceStatus()
+		isMaintenanceMode, err := c.maintenanceStatus.IsMaintenance()
 		if err != nil {
-			http.Error(w, "Failed to check maintenance status", http.StatusInternalServerError)
+			http.Error(w, "Failed to check maintenance_test status", http.StatusInternalServerError)
 			return
 		}
 		if isMaintenanceMode {
-			http.Error(w, "Service is under maintenance", http.StatusServiceUnavailable)
+			http.Error(w, "Service is under maintenance_test", http.StatusServiceUnavailable)
 			return
 		}
 		next.ServeHTTP(w, r)

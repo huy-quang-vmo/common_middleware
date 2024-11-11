@@ -1,8 +1,8 @@
 package main
 
 import (
-	common_middleware "github.com/common-middleware"
 	"github.com/gin-gonic/gin"
+	common_middleware "github.com/huy-quang-vmo/common_middleware/maintenance"
 	"net/http"
 )
 
