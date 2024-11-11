@@ -1,6 +1,9 @@
 package maintenance
 
-import "net/http"
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
 type MaintenanceMiddleware struct {
 	maintenanceStatus GetMaintenanceStatus
@@ -14,17 +17,15 @@ type GetMaintenanceStatus interface {
 	IsMaintenance() (bool, error)
 }
 
-func (c *MaintenanceMiddleware) MaintenanceStatus(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		isMaintenanceMode, err := c.maintenanceStatus.IsMaintenance()
-		if err != nil {
-			http.Error(w, "Failed to check maintenance_test status", http.StatusInternalServerError)
-			return
-		}
-		if isMaintenanceMode {
-			http.Error(w, "Service is under maintenance_test", http.StatusServiceUnavailable)
-			return
-		}
-		next.ServeHTTP(w, r)
-	})
+func (m *MaintenanceMiddleware) MaintenanceStatus(c *gin.Context) {
+	isMaintenanceMode, err := m.maintenanceStatus.IsMaintenance()
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, nil)
+		return
+	}
+	if isMaintenanceMode {
+		c.AbortWithStatusJSON(http.StatusServiceUnavailable, nil)
+		return
+	}
+	c.Next()
 }
