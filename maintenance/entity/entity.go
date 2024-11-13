@@ -9,8 +9,8 @@ var (
 )
 
 type ServiceManagement struct {
-	ID     interface{}   `json:"id" mongo:"_id" pg:"id"`
-	Status ServiceStatus `json:"status" mongo:"status" pg:"status"`
+	ID     interface{}   `json:"id" bson:"_id" pg:"id"`
+	Status ServiceStatus `json:"status" bson:"status" pg:"status"`
 
 	tableName struct{} `pg:"service_managements,alias:service_managements"` //nolint:all
 }
