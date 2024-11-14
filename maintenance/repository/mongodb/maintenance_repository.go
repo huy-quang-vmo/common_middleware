@@ -56,9 +56,8 @@ func (m MaintenanceRepository) GetServiceManagement(ctx context.Context) (entity
 func (m MaintenanceRepository) GetServiceStatus(ctx context.Context) (entity.ServiceStatus, error) {
 	// get first record in service management collection
 	collection := m.db.Collection(ServiceManagementCollection)
-	filter := bson.D{}
 	var serviceManagement entity.ServiceManagement
-	err := collection.FindOne(ctx, filter).Decode(&serviceManagement)
+	err := collection.FindOne(ctx, nil).Decode(&serviceManagement)
 	if err != nil && !errors.Is(err, mongo.ErrNoDocuments) {
 		return serviceManagement.Status, err
 	}
