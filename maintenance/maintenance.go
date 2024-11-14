@@ -20,11 +20,11 @@ type GetMaintenanceStatus interface {
 func (m *MaintenanceMiddleware) MaintenanceStatus(c *gin.Context) {
 	isMaintenanceMode, err := m.maintenanceStatus.IsMaintenance()
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, nil)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 	if isMaintenanceMode {
-		c.AbortWithStatusJSON(http.StatusServiceUnavailable, nil)
+		c.AbortWithStatusJSON(http.StatusServiceUnavailable, "Service is under maintenance")
 		return
 	}
 	c.Next()

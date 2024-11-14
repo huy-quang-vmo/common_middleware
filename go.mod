@@ -5,6 +5,8 @@ go 1.22.0
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-pg/pg/v10 v10.13.0
+	github.com/go-resty/resty/v2 v2.16.0
+	github.com/google/uuid v1.6.0
 	github.com/labstack/echo/v4 v4.12.0
 	go.mongodb.org/mongo-driver v1.17.1
 )
@@ -20,7 +22,6 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.20.0 // indirect
-	github.com/go-resty/resty/v2 v2.16.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
