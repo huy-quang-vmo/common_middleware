@@ -21,9 +21,15 @@ func NewRestyClient(retryTime, timeout int, ENV string) *resty.Client {
 		client.SetTimeout(time.Duration(timeout) * time.Second)
 	}
 
+	client.AddRetryCondition(customRetryCondition)
+
 	client.SetDebugBodyLimit(200)
 	if ENV == "dev" {
 		client.SetDebug(true)
 	}
 	return client
+}
+
+func customRetryCondition(r *resty.Response, err error) bool {
+	return err != nil || (r.StatusCode() >= 500 && r.StatusCode() != 503)
 }
